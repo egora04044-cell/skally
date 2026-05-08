@@ -9,7 +9,7 @@ import type { NextConfig } from "next";
 const isProd = process.env.NODE_ENV === "production";
 /** Только когда сайт реально доступен по HTTPS (после certbot и т.д.). */
 const publicSiteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "";
-const isHttpsSite = /^https:\/\//i.test(publicSiteUrl.trim());
+const isHttpsSite = publicSiteUrl.trim().toLowerCase().startsWith("https://");
 
 const cspDirectives: string[] = [
   "default-src 'self'",
