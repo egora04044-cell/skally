@@ -7,6 +7,9 @@ import type { NextConfig } from "next";
  */
 
 const isProd = process.env.NODE_ENV === "production";
+/** Только когда сайт реально доступен по HTTPS (после certbot и т.д.). */
+const publicSiteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "";
+const isHttpsSite = /^https:\/\//i.test(publicSiteUrl.trim());
 
 const cspDirectives: string[] = [
   "default-src 'self'",
@@ -23,7 +26,6 @@ if (isProd) {
     "script-src 'self'",
     "style-src 'self'",
     "connect-src 'self'",
-    "upgrade-insecure-requests",
   );
 } else {
   cspDirectives.push(
@@ -31,6 +33,10 @@ if (isProd) {
     "style-src 'self' 'unsafe-inline'",
     "connect-src 'self' ws: wss:",
   );
+}
+
+if (isProd && isHttpsSite) {
+  cspDirectives.push("upgrade-insecure-requests");
 }
 
 const contentSecurityPolicy = cspDirectives.join("; ");
@@ -48,7 +54,7 @@ const securityHeaders: { key: string; value: string }[] = [
   { key: "Content-Security-Policy", value: contentSecurityPolicy },
 ];
 
-if (isProd) {
+if (isProd && isHttpsSite) {
   securityHeaders.unshift({
     key: "Strict-Transport-Security",
     value: "max-age=31536000; includeSubDomains; preload",
