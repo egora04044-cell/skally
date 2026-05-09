@@ -15,30 +15,6 @@ export function LegalFooterLinks() {
       >
         Политика конфиденциальности
       </Link>
-      <span
-        className="hidden text-zinc-600 sm:inline"
-        aria-hidden
-      >
-        ·
-      </span>
-      <Link
-        className={linkClass}
-        href="/cookies"
-      >
-        Cookie
-      </Link>
-      <span
-        className="hidden text-zinc-600 sm:inline"
-        aria-hidden
-      >
-        ·
-      </span>
-      <Link
-        className={linkClass}
-        href="/offer"
-      >
-        Публичная оферта
-      </Link>
     </nav>
   );
 }
