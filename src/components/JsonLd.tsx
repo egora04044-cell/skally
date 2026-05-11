@@ -8,7 +8,8 @@ export function JsonLd({ config }: { config: SiteConfig }) {
   const { artistName, description, shows, socials, ogImage } = config;
 
   const events = shows.map((s) => {
-    const ticketPage = s.ticketRef ? resolveTicketHttpsUrl(s.ticketRef) : undefined;
+    const ticketPage =
+      s.ticketHref ?? (s.ticketRef ? resolveTicketHttpsUrl(s.ticketRef) : undefined);
     const fallbackPage = !ticketPage && config.ticketFallbackUrl ? config.ticketFallbackUrl : undefined;
     const eventObj: Record<string, unknown> = {
       "@type": "Event" as const,

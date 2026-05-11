@@ -4,13 +4,15 @@ import { LegalFooterLinks } from "@/components/LegalFooterLinks";
 import { ShowList } from "@/components/ShowList";
 import { SocialLinks } from "@/components/SocialLinks";
 import { site } from "@/content/site";
+import { getShowsForHome } from "@/lib/get-site-shows";
 import { filterUpcomingShows } from "@/lib/upcoming-shows";
 
 /** Иначе список «застывает» на дате сборки, а не календаря. */
 export const dynamic = "force-dynamic";
 
-export default function Home() {
-  const upcomingShows = filterUpcomingShows(site.shows);
+export default async function Home() {
+  const shows = await getShowsForHome();
+  const upcomingShows = filterUpcomingShows(shows);
 
   return (
     <>

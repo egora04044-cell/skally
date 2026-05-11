@@ -1,12 +1,9 @@
 import { NextResponse } from "next/server";
 
-import {
-  TICKET_ALLOWED_HOSTS,
-  resolveTicketHttpsUrl,
-} from "@/content/ticket-destinations";
+import { resolveTicketHttpsUrl } from "@/content/ticket-destinations";
 import { assertHttpsTicketUrl, TICKET_REF_SAFE } from "@/lib/ticket-url";
 
-/** Безопасный редирект на оператора билетов: только whitelist + https, без произвольного url из запроса. */
+/** Редирект на оператора билетов: только зарегистрированный `ref` → HTTPS URL из `ticket-destinations.ts`. */
 export async function GET(
   _request: Request,
   context: { params: Promise<{ ref: string }> },
@@ -22,6 +19,6 @@ export async function GET(
     return new NextResponse(null, { status: 404 });
   }
 
-  assertHttpsTicketUrl(target, TICKET_ALLOWED_HOSTS);
+  assertHttpsTicketUrl(target);
   return NextResponse.redirect(target, 302);
 }

@@ -6,7 +6,7 @@
 
 | Тема | Реализация |
 |------|------------|
-| Редирект на билетного оператора | Только `/go/tickets/[ref]`; URL из `ticket-destinations.ts`; HTTPS и whitelist hostname (`TICKET_ALLOWED_HOSTS`). |
+| Редирект на билетного оператора | Только `/go/tickets/[ref]`; URL из `ticket-destinations.ts`; проверка HTTPS. |
 | Security headers | `next.config.ts`: CSP (строже в prod), nosniff, Referrer-Policy, XFO DENY, Permissions-Policy, COOP; HSTS только в prod. |
 | www / apex | Опционально `CANONICAL_SITE_HOST` + `src/middleware.ts` (только prod). В Next.js 16 возможно предупреждение о смене соглашения `middleware` → `proxy` — следите за релиз-нотами и при необходимости перенесите редирект. |
 | XSS в JSON-LD | `src/lib/jsonld.ts` экранирует `<` для `application/ld+json`. |
@@ -24,7 +24,7 @@
 
 ## Билеты и контент
 
-- Перед добавлением реального URL билетов добавьте **hostname оператора в** `src/content/ticket-destinations.ts` → `TICKET_ALLOWED_HOSTS`, затем пару **`ref → https://...`** и выставьте тот же `ticketRef` у концерта в `src/content/site.ts`.
+- Для редиректа `/go/tickets/[ref]` добавьте пару **`ref → https://...`** в `src/content/ticket-destinations.ts` и выставьте тот же `ticketRef` у концерта (или укажите HTTPS-ссылку в таблице в колонке «Ссылка на билеты»).
 - Не вводите «открытый редирект» по query-параметру.
 
 ## Формы, API, антибот, rate limit

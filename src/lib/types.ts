@@ -16,6 +16,8 @@ export type Show = {
    * Без значения кнопка использует `site.ticketFallbackUrl`, если задан.
    */
   ticketRef?: string;
+  /** Прямая HTTPS-ссылка на билеты (например из Google Таблицы). */
+  ticketHref?: string;
   ticketLabel?: string;
 };
 

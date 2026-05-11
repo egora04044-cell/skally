@@ -27,9 +27,10 @@ export function ShowList({ shows, fallbackTicketHref }: Props) {
         const refHref = show.ticketRef
           ? `/go/tickets/${encodeURIComponent(show.ticketRef)}`
           : undefined;
-        const fallback = !refHref && fallbackTicketHref ? fallbackTicketHref : undefined;
-        const href = refHref ?? fallback;
-        const external = Boolean(refHref || fallback);
+        const fallback =
+          !show.ticketHref && !refHref && fallbackTicketHref ? fallbackTicketHref : undefined;
+        const href = show.ticketHref ?? refHref ?? fallback;
+        const external = Boolean(show.ticketHref || refHref || fallback);
 
         return (
           <li

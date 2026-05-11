@@ -23,15 +23,39 @@ function todayKeyMoscow(now: Date): string {
   return now.toLocaleDateString("en-CA", { timeZone: MOSCOW_TZ });
 }
 
+function compareShowsChronologically(a: Show, b: Show): number {
+  const da = showDayKey(a);
+  const db = showDayKey(b);
+  if (da && db) {
+    const byDate = da.localeCompare(db);
+    if (byDate !== 0) return byDate;
+  } else if (da && !db) {
+    return -1;
+  } else if (!da && db) {
+    return 1;
+  }
+  const byCity = a.city.localeCompare(b.city, "ru");
+  if (byCity !== 0) return byCity;
+  const byClub = a.club.localeCompare(b.club, "ru");
+  if (byClub !== 0) return byClub;
+  return a.id.localeCompare(b.id);
+}
+
+/** Сверху вниз: сначала более ранняя дата; в один день — город, площадка, id. */
+export function sortShowsByDateAsc(shows: Show[]): Show[] {
+  return [...shows].sort(compareShowsChronologically);
+}
+
 /**
  * Оставляет концерты, дата которых ещё не прошла по календарю Москвы: в день выступления
- * строка есть, начиная со следующего дня — убирается.
+ * строка есть, начиная со следующего дня — убирается. Результат отсортирован по дате (раньше — выше).
  */
 export function filterUpcomingShows(shows: Show[], now: Date = new Date()): Show[] {
   const today = todayKeyMoscow(now);
-  return shows.filter((show) => {
+  const filtered = shows.filter((show) => {
     const day = showDayKey(show);
     if (!day) return true;
     return day >= today;
   });
+  return sortShowsByDateAsc(filtered);
 }
