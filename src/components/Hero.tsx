@@ -1,16 +1,18 @@
 import type { SiteConfig } from "@/lib/types";
 
+import { HeroArtHeader } from "./HeroArtHeader";
 import { SocialLinks } from "./SocialLinks";
 
 type Props = {
-  config: Pick<SiteConfig, "artistName" | "socials">;
+  config: Pick<SiteConfig, "artistName" | "socials" | "heroImage">;
 };
 
 /**
- * Герой: #000 → плотный белый текст по центру + мягкое белое «halo».
+ * Первый экран: при `heroImage` — макет (фон см. HeroArtHeader + hero-art.module.css); соцсети поверх внизу.
+ * Без картинки — прежний вариант с типографикой.
  */
 export function Hero({ config }: Props) {
-  const { artistName, socials } = config;
+  const { artistName, heroImage, socials } = config;
 
   const lines = artistName
     .trim()
@@ -18,15 +20,17 @@ export function Hero({ config }: Props) {
     .map((w) => w.toUpperCase())
     .filter(Boolean);
 
+  if (heroImage) {
+    return <HeroArtHeader artistName={artistName} socials={socials} />;
+  }
+
   return (
     <header className="relative isolate flex min-h-[min(100svh,52rem)] flex-col overflow-hidden bg-black">
-      {/* Мягкое свечение под заголовком */}
       <div
         className="pointer-events-none absolute left-1/2 top-[10%] z-[5] h-[min(50vh,26rem)] w-[min(115vw,42rem)] -translate-x-1/2 rounded-full bg-white/[0.18] blur-[76px] sm:top-[8%]"
         aria-hidden
       />
 
-      {/* Белый заголовок без «серой» виньетки и без затемняющей тени */}
       <div className="pointer-events-none absolute inset-0 z-10 flex items-center justify-center px-2 pt-[4vh] sm:px-4 sm:pt-[6vh]">
         <h1 className="w-full max-w-[100vw] text-center font-sans font-black uppercase leading-[0.74] tracking-[-0.04em] text-white">
           {lines.map((line, i) => (

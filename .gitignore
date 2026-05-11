@@ -40,3 +40,7 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# локальные копии макетов в корне (боевые файлы лежат в public/)
+/экран.webp
+/мобильная версия.webp

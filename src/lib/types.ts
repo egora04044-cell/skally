@@ -31,6 +31,8 @@ export type SiteConfig = {
   description: string;
   /** Open Graph / превью */
   ogImage?: string;
+  /** Герой: десктоп — URL в `/public`; моб. макет задаётся в `hero-art.module.css`. */
+  heroImage?: string;
   socials: SocialLink[];
   shows: Show[];
   /**

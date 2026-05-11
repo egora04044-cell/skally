@@ -4,20 +4,27 @@ import { LegalFooterLinks } from "@/components/LegalFooterLinks";
 import { ShowList } from "@/components/ShowList";
 import { SocialLinks } from "@/components/SocialLinks";
 import { site } from "@/content/site";
+import { filterUpcomingShows } from "@/lib/upcoming-shows";
+
+/** Иначе список «застывает» на дате сборки, а не календаря. */
+export const dynamic = "force-dynamic";
 
 export default function Home() {
+  const upcomingShows = filterUpcomingShows(site.shows);
+
   return (
     <>
-      <JsonLd config={site} />
-      <div className="flex min-h-svh flex-col bg-zinc-950 text-zinc-100">
+      <JsonLd config={{ ...site, shows: upcomingShows }} />
+      <div className="flex min-h-svh flex-col bg-black text-zinc-100">
         <Hero
           config={{
             artistName: site.artistName,
+            heroImage: site.heroImage,
             socials: site.socials,
           }}
         />
         <section
-          className="flex flex-1 flex-col justify-center px-4 py-20 sm:py-28"
+          className="flex flex-1 flex-col justify-center px-3 py-20 sm:px-4 sm:py-28"
           aria-labelledby="shows-heading"
         >
           <h2
@@ -27,7 +34,7 @@ export default function Home() {
             Ближайшие выступления
           </h2>
           <ShowList
-            shows={site.shows}
+            shows={upcomingShows}
             fallbackTicketHref={site.ticketFallbackUrl}
           />
         </section>

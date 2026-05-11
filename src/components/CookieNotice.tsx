@@ -41,7 +41,7 @@ export function CookieNotice() {
     <div
       role="dialog"
       aria-labelledby="cookie-notice-title"
-      className="fixed inset-x-0 bottom-0 z-[100] border-t border-white/15 bg-zinc-950/95 px-4 py-4 shadow-[0_-8px_32px_rgba(0,0,0,0.45)] backdrop-blur-md sm:py-5"
+      className="fixed inset-x-0 bottom-0 z-[100] border-t border-white/15 bg-black/95 px-4 py-4 shadow-[0_-8px_32px_rgba(0,0,0,0.45)] backdrop-blur-md sm:py-5"
     >
       <div className="mx-auto flex max-w-3xl flex-col gap-3 sm:flex-row sm:items-center sm:justify-between sm:gap-6">
         <div className="min-w-0 text-xs text-zinc-400 sm:text-sm">

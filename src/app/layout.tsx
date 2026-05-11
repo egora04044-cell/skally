@@ -26,8 +26,7 @@ export const metadata: Metadata = {
   description: site.description,
   metadataBase: base,
   icons: {
-    icon: [{ url: "/favicon.ico", sizes: "any" }, { url: "/icon.png", type: "image/png", sizes: "512x512" }],
-    apple: [{ url: "/apple-icon.png", sizes: "180x180", type: "image/png" }],
+    icon: [{ url: "/favicon.ico", sizes: "any" }],
   },
   openGraph: {
     title: site.pageTitle,
@@ -45,7 +44,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#09090b",
+  themeColor: "#000000",
   colorScheme: "dark",
 };
 
@@ -57,9 +56,9 @@ export default function RootLayout({
   return (
     <html
       lang="ru"
-      className={`${inter.variable} ${unbounded.variable} h-full antialiased`}
+      className={`${inter.variable} ${unbounded.variable} h-full bg-black antialiased`}
     >
-      <body className="min-h-full bg-zinc-950 font-sans text-zinc-100">
+      <body className="min-h-full bg-black font-sans text-zinc-100">
         {children}
         <CookieNotice />
       </body>

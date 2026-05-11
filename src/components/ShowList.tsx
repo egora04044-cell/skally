@@ -22,7 +22,7 @@ export function ShowList({ shows, fallbackTicketHref }: Props) {
   }
 
   return (
-    <ol className="mx-auto flex w-full max-w-3xl flex-col">
+    <ol className="mx-auto flex w-full max-w-5xl flex-col">
       {shows.map((show) => {
         const refHref = show.ticketRef
           ? `/go/tickets/${encodeURIComponent(show.ticketRef)}`
