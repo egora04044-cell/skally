@@ -1,4 +1,4 @@
-/* Пути совпадают с `site.heroImage` (десктоп) и public/hero-mobile.webp (до md). */
+/* Совпадает с site.heroImage (десктоп) и public/hero-mobile.webp (мобила). Исходники в корне репозитория. */
 
 .shell {
   -webkit-touch-callout: none;
@@ -17,7 +17,7 @@
 
 @media (min-width: 768px) {
   .backdrop {
-    background-image: url("/ekran.webp");
+    background-image: url("/hero-desktop.webp");
     background-position: center;
   }
 }

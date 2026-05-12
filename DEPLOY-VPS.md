@@ -39,8 +39,8 @@ sudo mkdir -p /var/www/scally
 sudo chown -R "$USER:$USER" /var/www/scally
 cd /var/www/scally
 
-# Вариант A: Git
-git clone <ваш-remote> .
+# Вариант A: Git (репозиторий на GitHub может называться иначе папки локально)
+git clone https://github.com/egora04044-cell/skally.git .
 
 # Вариант B: с вашего ПК (из папки проекта)
 # rsync -avz --exclude node_modules --exclude .next ./ user@SERVER:/var/www/scally/
@@ -59,6 +59,12 @@ nano .env.production
 
 ```
 NEXT_PUBLIC_SITE_URL=https://ваш-домен.ru
+```
+
+Афиша из CSV (как локально с `CONCERTS_SHEET_CSV_URL` в `.env`; если не задать — подставится дефолт из кода):
+
+```
+CONCERTS_SHEET_CSV_URL=https://docs.google.com/spreadsheets/d/…/export?format=csv&gid=…
 ```
 
 По желанию (см. `.env.example`): `CANONICAL_SITE_HOST`, `NEXT_PUBLIC_LEGAL_EMAIL`, `NEXT_PUBLIC_OPERATOR_ADDRESS`.

@@ -7,8 +7,8 @@ export const site: SiteConfig = {
   artistName: "Scally Milano",
   pageTitle: "Scally Milano — концерты",
   description: "Концерты и билеты Scally Milano.",
-  /** Герой: десктоп `public/ekran.webp`, мобила `public/hero-mobile.webp` (подключение в `hero-art.module.css`). */
-  heroImage: "/ekran.webp",
+  /** Герой: десктоп `public/hero-desktop.webp`, мобила `public/hero-mobile.webp` (см. `hero-art.module.css`). */
+  heroImage: "/hero-desktop.webp",
   ticketFallbackUrl: "https://t.me/scallymilanogram",
   socials: [
     {
