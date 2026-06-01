@@ -17,6 +17,7 @@ export default async function Home() {
   return (
     <>
       <JsonLd config={{ ...site, shows: upcomingShows }} />
+      <p className="sr-only">{site.description}</p>
       <div className="flex min-h-svh flex-col bg-black text-zinc-100">
         <Hero
           config={{

@@ -1,6 +1,6 @@
 /**
- * Обновляет `src/app/favicon.ico` из PNG.
- * Пример: `node scripts/generate-favicon.mjs ./my-icon.png`
+ * Обновляет favicon из исходника (public/favicon-source.png — то же лицо, что на иконке).
+ * Генерирует ICO (16/32/48/120) и icon.png 120×120 для Яндекса/Google.
  */
 import fs from "node:fs";
 import path from "node:path";
@@ -11,7 +11,9 @@ import pngToIco from "png-to-ico";
 import sharp from "sharp";
 
 const root = path.join(path.dirname(fileURLToPath(import.meta.url)), "..");
-const icoOut = path.join(root, "src", "app", "favicon.ico");
+const appDir = path.join(root, "src", "app");
+const icoOut = path.join(appDir, "favicon.ico");
+const iconOut = path.join(appDir, "icon.png");
 
 const arg = process.argv[2];
 const source = arg
@@ -20,7 +22,7 @@ const source = arg
 
 if (!fs.existsSync(source)) {
   console.error(
-    "Нет файла PNG. Передайте путь:\n  node scripts/generate-favicon.mjs path/to/image.png\n(или временно верните public/favicon-source.png)",
+    "Нет исходника. Передайте путь:\n  node scripts/generate-favicon.mjs path/to/image.png",
   );
   process.exit(1);
 }
@@ -30,15 +32,26 @@ const resizeOpts = {
   position: "attention",
 };
 
+const sizes = [16, 32, 48, 120];
 const tmpDir = fs.mkdtempSync(path.join(tmpdir(), "scally-favicon-"));
-const iconTmp = path.join(tmpDir, "icon.png");
 
 try {
-  await sharp(source).resize(512, 512, resizeOpts).png({ compressionLevel: 9 }).toFile(iconTmp);
+  const pngBuffers = await Promise.all(
+    sizes.map(async (size) => {
+      const out = path.join(tmpDir, `icon-${size}.png`);
+      await sharp(source)
+        .resize(size, size, resizeOpts)
+        .png({ compressionLevel: 9 })
+        .toFile(out);
+      return fs.readFileSync(out);
+    }),
+  );
 
-  const icoBuf = await pngToIco(iconTmp);
-  fs.writeFileSync(icoOut, icoBuf);
+  fs.writeFileSync(icoOut, await pngToIco(pngBuffers));
+  fs.copyFileSync(path.join(tmpDir, "icon-120.png"), iconOut);
+
   console.log("OK →", icoOut);
+  console.log("OK →", iconOut);
 } finally {
   fs.rmSync(tmpDir, { recursive: true, force: true });
 }

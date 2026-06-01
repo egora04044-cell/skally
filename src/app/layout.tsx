@@ -26,7 +26,10 @@ export const metadata: Metadata = {
   description: site.description,
   metadataBase: base,
   icons: {
-    icon: [{ url: "/favicon.ico", sizes: "any" }],
+    icon: [
+      { url: "/icon.png", type: "image/png", sizes: "120x120" },
+      { url: "/favicon.ico", sizes: "any", type: "image/x-icon" },
+    ],
   },
   openGraph: {
     title: site.pageTitle,
