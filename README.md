@@ -13,4 +13,4 @@ npm run dev
 
 ## Деплой на свой VPS
 
-См. **[DEPLOY-VPS.md](./DEPLOY-VPS.md)** (Node, PM2, Nginx, Certbot).
+См. **[DEPLOY-VPS.md](./DEPLOY-VPS.md)** (Node, PM2, Nginx; для **ISPmanager / FirstVDS** — раздел «Вариант B» и файл `nginx.ispmanager-snippet.conf`).

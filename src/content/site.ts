@@ -6,7 +6,7 @@ import type { SiteConfig } from "@/lib/types";
 export const site: SiteConfig = {
   artistName: "Scally Milano",
   pageTitle: "Scally Milano — концерты",
-  description: "Концерты и билеты Scally Milano.",
+  description: "Скалли я",
   /** Герой: десктоп из корня «комп new.webp» → `public/hero-desktop.webp`, мобила «моб новое решение.webp» → `hero-mobile.webp`. */
   heroImage: "/hero-desktop.webp",
   ticketFallbackUrl: "https://t.me/scallymilanogram",

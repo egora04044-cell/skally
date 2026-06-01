@@ -1,5 +1,8 @@
 # Пример для Nginx: прокси на Next.js (PM2 слушает 127.0.0.1:3000 по умолчанию).
 #
+# ISPmanager / FirstVDS: панель создаёт свой vhost (часто listen IP:443 + root).
+# Не дублируйте этот файл вслепую — см. DEPLOY-VPS.md и nginx.ispmanager-snippet.conf
+#
 # sudo cp nginx.conf.example /etc/nginx/sites-available/scally
 # sudo nano /etc/nginx/sites-available/scally   # подставьте свой домен
 # sudo ln -sf /etc/nginx/sites-available/scally /etc/nginx/sites-enabled/
