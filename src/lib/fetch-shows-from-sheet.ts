@@ -9,8 +9,11 @@ const REVALIDATE_SEC = 120;
  * либо экспорт: `https://docs.google.com/spreadsheets/d/SHEET_ID/export?format=csv&gid=GID`
  */
 export async function fetchShowsFromPublishedCsv(csvUrl: string): Promise<Show[] | null> {
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), 5_000);
   try {
     const res = await fetch(csvUrl, {
+      signal: controller.signal,
       next: { revalidate: REVALIDATE_SEC },
       headers: { Accept: "text/csv,*/*" },
     });
@@ -20,5 +23,7 @@ export async function fetchShowsFromPublishedCsv(csvUrl: string): Promise<Show[]
     return shows.length > 0 ? shows : null;
   } catch {
     return null;
+  } finally {
+    clearTimeout(timer);
   }
 }

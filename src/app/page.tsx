@@ -7,8 +7,8 @@ import { site } from "@/content/site";
 import { getShowsForHome } from "@/lib/get-site-shows";
 import { filterUpcomingShows } from "@/lib/upcoming-shows";
 
-/** Иначе список «застывает» на дате сборки, а не календаря. */
-export const dynamic = "force-dynamic";
+/** ISR: страница кешируется, фоновое обновление раз в 2 минуты. */
+export const revalidate = 120;
 
 export default async function Home() {
   const shows = await getShowsForHome();
